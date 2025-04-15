@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Corazón de Palabras</title>
+  <style>
+    body {
+      background: #0b1522;
+      color: red;
+      font-family: 'Times New Roman', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    @keyframes palpitar {
+      0% { transform: scale(1.4); }
+      80% { transform: scale(2); }
+    }
+
+    .heart {
+      width: 500px;
+      height: 450px;
+      position: relative;
+      animation: palpitar 3s linear infinite;
+    }
+
+    @keyframes palpitar-palabras {
+      0% { transform: scale(1); }
+      80% { transform: scale(1.3); }
+    }
+
+    .word {
+      position: absolute;
+      color: red;
+      font-size: 14px;
+      transform: translate(-50%, -50%);
+      white-space: nowrap;
+      box-shadow:  -10px 15px 100px #f20044;
+      animation: palpitar-palabras 3s linear infinite;
+    }
+
+    .center-word {
+      font-size: 28px;
+      font-weight: bold;
+      color: red;
+      animation: palpitar-palabras 2s linear infinite;
+    }
+  </style>
+</head>
+<body>
+  <div class="heart" id="heart"></div>
+
+  <script>
+    const words = [
+      "Nathalia", "Te quiero", "Te amo", "Te quiero", "Te amo", "Te quiero", "Te amo", "Te quiero", "Te amo", "Te quiero",
+      "Te amo", "Te quiero", "Te amo", "Te quiero", "Te amo", "Te quiero", "Te amo", "Te quiero", "Te amo", "Te quiero",
+      "Te amo", "Te quiero", "Teamo", "Te quiero", "Te amo", "Te quiero", "Te amo", "Te quiero", "Te amo", "Te quiero",
+      "Kiim", "Te quiero", "Te amo", "Te quiero", "Te quiero", "Princesa", "Amor", "Te amo", "Princesa", "Amor",
+      "Amor", "Te quiero", "Te amo", "Mi vida", "Te amo", "Te deseo", "Mi niña", "Princesa", "Te quiero", "AMOR",
+      "Mi vida", "Nata", "Amor", "Nattita", "Te amo", "Te quiero", "Mi vida", "Te amo", "Te quiero", "Te amo",
+      "Amor", "Kimb", "Amor", "Mi querida", "Te amo", "Mi vida", "Nata", "Te quiero", "Te amo", "Amor",
+      "Amor", "Te quiero", "Mi vida", "Amor", "Nata", "amor", "Feliz", "Mi vida", "Mi vida",
+      "Amor", "Mi vida", "Mi niña", "Natta", "AMO", "Feliz", "amor", "Feliz", "Mi niña",
+      "Natha", "Te amo", "Mi vida", "Amor", "Te quiero", "Mi vida", "Natta", "Te amo", "Mi querida", "Amor"
+    ];
+
+    const heart = document.getElementById('heart');
+    const maxWords = 30; // Limitar a 50 palabras
+    for (let i = 0; i < Math.min(words.length, maxWords); i++) {
+      const angle = i * (2 * Math.PI / Math.min(words.length, maxWords));
+      const x = 250 + 16 * Math.pow(Math.sin(angle), 3) * 10;
+      const y = 250 - (13 * Math.cos(angle) - 5 * Math.cos(2 * angle) - 2 * Math.cos(3 * angle) - Math.cos(4 * angle)) * 10;
+
+      const wordEl = document.createElement('div');
+      wordEl.className = 'word';
+      wordEl.textContent = words[i];
+      wordEl.style.left = `${x}px`;
+      wordEl.style.top = `${y}px`;
+      heart.appendChild(wordEl);
+    }
+
+    const centerWord = document.createElement('div');
+    centerWord.className = 'word center-word';
+    centerWord.textContent = 'N❤️L';
+    centerWord.style.left = '250px';
+    centerWord.style.top = '240px';
+    heart.appendChild(centerWord);
+  </script>
+</body>
+</html>
